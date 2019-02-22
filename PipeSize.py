@@ -4,21 +4,19 @@ steelDensity=7.7
 
 pipeDiameter=float(input("Enter Diameter of Pipe (in): "))
 wallThickness=float(input("Enter wall thickness (in): "))
-pipeLength=float(input("Enter length of tube (cm): "))
+pipeLength=float(input("Enter length of tube (m): "))
 
-pipeDiameter=pipeDiameter*2.54
+pipeDiameter=pipeDiameter*2.54*10
 pipeRadius=pipeDiameter/2
-wallThickness=wallThickness*2.54
+wallThickness=wallThickness*2.54*10
 #pipeLength=pipeLength*2.54
 
 print("Pipe Diameter (cm): "+str(pipeDiameter))
 print("Wall Thickness (cm): "+str(wallThickness))
 print("Pipe Length: "+str(pipeLength))
 
-areaOfOutterR=(math.pow(pipeRadius,2)*math.pi)
-areaOfInnerR=(math.pow(pipeRadius-2*wallThickness,2)*math.pi)
-steelArea=areaOfOutterR-areaOfInnerR
-steelVolume=steelArea*pipeLength
-steelMass=steelVolume*steelDensity
+crossSectionArea=math.pow(pipeDiameter,2) - math.pow(pipeDiameter-2*wallThickness,2)
 
-print(str(steelMass/1000)+" Kilograms")
+mass=steelDensity * crossSectionArea * pipeLength * math.pi/4000
+
+print(str(mass)+" Kilograms")
