@@ -10,7 +10,7 @@ densityOfWater = 1000
 pipeDiameters = []
 pipePercentages = []
 
-with open('pipes.txt') as csv_file:
+with open('../DataFiles/pipes-old.csv') as csv_file:
     csv_reader = csv.reader(csv_file, delimiter=',')
     line_count = 0
     for row in csv_reader:
@@ -43,29 +43,40 @@ with open('pipes.txt') as csv_file:
             # print(str(volumeOfInsidePipe) + " m^3 = volume of inside pipe")
             # print(str(volumeOfJustPipe) + " m^3 = volume of just pipe")
 
+            # add volume of circle to close one end of the pipe
+            # uses wallThickness as height
+            volumeOfCircle = math.pow(((pipeDiameter - (wallThickness * 2)) / 2), 2) * wallThickness * math.pi
+            totalVolume = volumeOfJustPipe + volumeOfCircle
+
             # mass = density of pipe * volume of pipe
             # mass in units of grams
             mass = steelDensity * volumeOfJustPipe
+            totalMass = steelDensity * totalVolume
 
             # volume of water displaced is total volume enclosed by the pipe
             volumeOfWaterDisplaced = volumeOfOutsidePipe
+            totalVolumeOfWaterDisplaced = volumeOfOutsidePipe + volumeOfCircle
 
             # print(str(mass) + " kg = mass of pipe")
             # print(str(volumeOfWaterDisplaced) + " m^3 = volume of water displaced")
 
             Fbuoyant = densityOfWater * 9.8 * volumeOfWaterDisplaced
+            totalFbuoyant = densityOfWater * 9.8 * totalVolumeOfWaterDisplaced
             weightOfPipe = mass * 9.8
+            totalWeightOfPipe = totalMass * 9.8
 
             # print(str(weightOfPipe) + " N = Weight of pipe")
             # print(str(Fbuoyant) + " N = Buoyant Force")
 
-            if weightOfPipe > Fbuoyant:
+            if totalWeightOfPipe > totalFbuoyant:
                 print("The pipe will sink.\n")
                 pipePercentages.append(0)
+                print(str(totalWeightOfPipe) + " total weight")
+                print(str(totalFbuoyant) + " total Fbuoyant")
             else:
                 print("The pipe will float.")
-                newtonDifference = Fbuoyant - weightOfPipe
-                availableVolume = volumeOfInsidePipe
+                newtonDifference = totalFbuoyant - totalWeightOfPipe
+                availableVolume = volumeOfInsidePipe - volumeOfCircle
                 volumeToSinkPipe = newtonDifference / (densityOfWater * 9.8)
                 # print(str(availableVolume) + " M^3 = available")
                 # print(str(volumeToSinkPipe) + " M^3 = to sink")

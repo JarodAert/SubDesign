@@ -8,7 +8,7 @@ WATER_DENSITY=1000
 STEEL_DENSITY=7700
 ALUMINUM_DENSITY=2700
 
-pipesDF=pandas.read_csv("./DataFiles/aluminumPipes.csv")
+pipesDF=pandas.read_csv("../DataFiles/aluminumPipes.csv")
 
 
 pipeDiameters=[]
