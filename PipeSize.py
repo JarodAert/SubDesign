@@ -39,7 +39,18 @@ weightOfPipe = mass * 9.8
 print(str(weightOfPipe) + " N = Weight of pipe")
 print(str(Fbuoyant) + " N = Buoyant Force")
 
+
+
 if weightOfPipe > Fbuoyant:
     print("The pipe will sink.")
 else:
     print("The pipe will float.")
+    newtonDifference = Fbuoyant - weightOfPipe
+    availableVolume = volumeOfInsidePipe
+    volumeToSinkPipe = newtonDifference / (densityOfWater * 9.8)
+    print(str(availableVolume) + " M^3 = available")
+    print(str(volumeToSinkPipe) + " M^3 = to sink")
+
+    # calculate how much volume should be filled with water to sink
+    percentToFillPipe = (volumeToSinkPipe / availableVolume) * 100
+    print(str(percentToFillPipe) + " % = percent of pipe to fill with water to sink")
