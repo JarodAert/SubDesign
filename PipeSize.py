@@ -23,7 +23,8 @@ print(str(mass) + " kg = mass of pipe")
 print(str(volumeOfPipe) + " volume of pipe")
 print(str(weightOfPipe) + " N = Weight of pipe")
 
-volumeOfWaterDisplaced = math.pow(pipeDiameter,2) * pipeLength * math.pi/4000
+# volume of a cylinder = pi * radius^2 * height
+volumeOfWaterDisplaced = math.pow((pipeDiameter / 2),2) * pipeLength * math.pi/4000
 
 Fbuoyant = densityOfWater * 9.8 * volumeOfWaterDisplaced
 
