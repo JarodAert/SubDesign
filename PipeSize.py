@@ -16,15 +16,15 @@ wallThickness=wallThickness*2.54*10
 crossSectionArea=math.pow(pipeDiameter,2) - math.pow(pipeDiameter-2*wallThickness,2)
 volumeOfPipe = crossSectionArea * pipeLength * math.pi/4000
 
-mass=steelDensity * volumeOfPipe
+mass = steelDensity * volumeOfPipe
 weightOfPipe = mass * 9.8
 
-print(str(mass)+" Kilograms")
-print(str(volumeOfPipe) +" volume of pipe")
-print(str(weightOfPipe)+" N = Weight of pipe")
+print(str(mass) + " kg = mass of pipe")
+print(str(volumeOfPipe) + " volume of pipe")
+print(str(weightOfPipe) + " N = Weight of pipe")
 
-volumeOfWaterDisplaced = volumeOfPipe
+volumeOfWaterDisplaced = math.pow(pipeDiameter,2) * pipeLength * math.pi/4000
 
 Fbuoyant = densityOfWater * 9.8 * volumeOfWaterDisplaced
 
-print(str(Fbuoyant)+" N Buoyant Force")
+print(str(Fbuoyant)+" N = Buoyant Force")
