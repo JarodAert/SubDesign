@@ -1,17 +1,20 @@
 import math
+import csv
+import matplotlib.pyplot as plt
 
 # Density of steel in kg/m^3
 steelDensity = 7700
 # Density of water in kg/m^3
 densityOfWater = 1000
 
-import csv
+pipeDiameters = []
+pipePercentages = []
 
 with open('pipes.txt') as csv_file:
     csv_reader = csv.reader(csv_file, delimiter=',')
     line_count = 0
     for row in csv_reader:
-        if line_count == 0:
+        if line_count < 2:
             # print(f'Column names are {", ".join(row)}')
             line_count += 1
         else:
@@ -24,6 +27,8 @@ with open('pipes.txt') as csv_file:
             # pipeLength = float(input("Enter length of tube (m): "))
 
             print(str(pipeDiameter) + " inches")
+            pipeDiameters.append(pipeDiameter)
+
             # conversion from inches to m
             pipeDiameter = (pipeDiameter * 2.54) / 100
             wallThickness = (wallThickness * 2.54) / 100
@@ -54,10 +59,9 @@ with open('pipes.txt') as csv_file:
             # print(str(weightOfPipe) + " N = Weight of pipe")
             # print(str(Fbuoyant) + " N = Buoyant Force")
 
-
-
             if weightOfPipe > Fbuoyant:
                 print("The pipe will sink.\n")
+                pipePercentages.append(0)
             else:
                 print("The pipe will float.")
                 newtonDifference = Fbuoyant - weightOfPipe
@@ -69,4 +73,7 @@ with open('pipes.txt') as csv_file:
                 # calculate how much volume should be filled with water to sink
                 percentToFillPipe = (volumeToSinkPipe / availableVolume) * 100
                 print(str(percentToFillPipe) + " % = percent of pipe to fill with water to sink\n")
+                pipePercentages.append(percentToFillPipe)
 
+plt.plot(pipeDiameters, pipePercentages)
+plt.show()
