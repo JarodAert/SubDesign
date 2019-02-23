@@ -76,4 +76,6 @@ with open('pipes.txt') as csv_file:
                 pipePercentages.append(percentToFillPipe)
 
 plt.plot(pipeDiameters, pipePercentages)
+plt.xlabel('diameter (inches)')
+plt.ylabel('% of pipe to fill to sink')
 plt.show()
