@@ -25,7 +25,7 @@ for index, row in pipesDF.iterrows():
     boyantForce=MaterialsFuncs.GetBoyantForceOfPipe(pipeD, wallThickness, length)
 
     newtonDifference = boyantForce - pipeWeight
-    availableVolume = MaterialsFuncs.GetMaterialVolume(MaterialsFuncs.ConvertInchToMeters(pipeD), wallThickness, length)
+    availableVolume = MaterialsFuncs.GetAvailableVolume(MaterialsFuncs.ConvertInchToMeters(pipeD), wallThickness, length)
     volumeToSinkPipe = newtonDifference / (WATER_DENSITY * 9.8)
 
     percentToFillPipe = (volumeToSinkPipe / availableVolume) * 100

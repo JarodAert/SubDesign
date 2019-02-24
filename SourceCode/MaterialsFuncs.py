@@ -25,6 +25,22 @@ def GetMaterialVolume(pipeDiameter, wallThickness, pipeLength):
 
     return (totalVolume)
 
+def GetAvailableVolume(pipeDiameter, wallThickness, pipeLength):
+    # conversion from inches to m
+    pipeDiameter = ConvertInchToMeters(pipeDiameter)
+    wallThickness = ConvertInchToMeters(wallThickness)
+    # find volume of just the metal part of the cylinder
+    # volume of a cylinder = radius^2 * height * pi
+    # volume in units of m^3
+    volumeOfOutsidePipe = math.pow((pipeDiameter / 2), 2) * pipeLength * math.pi
+    volumeOfInsidePipe = math.pow(((pipeDiameter - (wallThickness * 2)) / 2), 2) * pipeLength * math.pi
+    volumeOfJustPipe = volumeOfOutsidePipe - volumeOfInsidePipe
+
+    volumeOfCircle = math.pow(((pipeDiameter - (wallThickness * 2)) / 2), 2) * wallThickness * math.pi
+    availableVolume = volumeOfJustPipe - volumeOfCircle
+
+    return (availableVolume)
+
 def GetMaterialMass(pipeDiameter, wallThickness, pipeLength, density):
     materialVolume=GetMaterialVolume(pipeDiameter, wallThickness, pipeLength)
     # mass = density of pipe * volume of pipe
