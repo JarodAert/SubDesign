@@ -40,4 +40,7 @@ fig = plt.figure()
 ax = fig.add_subplot(111, projection='3d')
 
 ax.scatter(pipeDiameters, pipeThickness, pipePercents)
+ax.set_xlabel("Pipe Diameter")
+ax.set_ylabel("Pipe Thickness")
+ax.set_zlabel("Percentage to Fill")
 plt.show()
