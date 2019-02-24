@@ -10,7 +10,6 @@ ALUMINUM_DENSITY=2700
 
 pipesDF=pandas.read_csv("../DataFiles/aluminumPipes.csv")
 
-
 pipeDiameters=[]
 pipePercents=[]
 pipeThickness=[]
@@ -23,10 +22,10 @@ for index, row in pipesDF.iterrows():
     length=0.5
 
     pipeWeight=MaterialsFuncs.GetMaterialWeight(pipeD, wallThickness, length, ALUMINUM_DENSITY)
-    boyantForce=MaterialsFuncs.GetBoyantForceOfPipe(pipeD, length)
+    boyantForce=MaterialsFuncs.GetBoyantForceOfPipe(pipeD, wallThickness, length)
 
     newtonDifference = boyantForce - pipeWeight
-    availableVolume = MaterialsFuncs.GetTotalVolumeOfPipe(MaterialsFuncs.ConvertInchToMeters(pipeD), length)
+    availableVolume = MaterialsFuncs.GetMaterialVolume(MaterialsFuncs.ConvertInchToMeters(pipeD), wallThickness, length)
     volumeToSinkPipe = newtonDifference / (WATER_DENSITY * 9.8)
 
     percentToFillPipe = (volumeToSinkPipe / availableVolume) * 100

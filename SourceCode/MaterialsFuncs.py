@@ -16,10 +16,14 @@ def GetMaterialVolume(pipeDiameter, wallThickness, pipeLength):
     # find volume of just the metal part of the cylinder
     # volume of a cylinder = radius^2 * height * pi
     # volume in units of m^3
-    volumeOfOutsidePipe = GetTotalVolumeOfPipe(pipeDiameter, pipeLength)
+    volumeOfOutsidePipe = math.pow((pipeDiameter / 2), 2) * pipeLength * math.pi
     volumeOfInsidePipe = math.pow(((pipeDiameter - (wallThickness * 2)) / 2), 2) * pipeLength * math.pi
     volumeOfJustPipe = volumeOfOutsidePipe - volumeOfInsidePipe
-    return (volumeOfJustPipe)
+
+    volumeOfCircle = math.pow(((pipeDiameter - (wallThickness * 2)) / 2), 2) * wallThickness * math.pi
+    totalVolume = volumeOfJustPipe + volumeOfCircle
+
+    return (totalVolume)
 
 def GetMaterialMass(pipeDiameter, wallThickness, pipeLength, density):
     materialVolume=GetMaterialVolume(pipeDiameter, wallThickness, pipeLength)
@@ -31,10 +35,6 @@ def GetMaterialMass(pipeDiameter, wallThickness, pipeLength, density):
 def GetMaterialWeight(pipeDiameter, wallThickness, pipeLength, density):
     return GetMaterialMass(pipeDiameter, wallThickness, pipeLength, density) * GRAVITY
 
-def GetBoyantForceOfPipe(pipeDiameter, pipeLength):
+def GetBoyantForceOfPipe(pipeDiameter, wallThickness, pipeLength):
     pipeDiameter=ConvertInchToMeters(pipeDiameter)
-    return GetTotalVolumeOfPipe(pipeDiameter, pipeLength) * WATER_DENSITY * GRAVITY
-
-def GetTotalVolumeOfPipe(pipeDiameter, pipeLength):
-    volumeOfPipe = math.pow((pipeDiameter / 2), 2) * pipeLength * math.pi
-    return(volumeOfPipe)
+    return GetMaterialVolume(pipeDiameter, wallThickness, pipeLength) * WATER_DENSITY * GRAVITY
