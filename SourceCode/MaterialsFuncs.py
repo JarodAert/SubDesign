@@ -1,7 +1,4 @@
 import math
-import pandas
-import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d import Axes3D
 
 GRAVITY=9.8
 WATER_DENSITY=1000

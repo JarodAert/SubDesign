@@ -3,12 +3,13 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 import MaterialsFuncs
 
+DATA_FILE_PATH="./DataFiles/aluminumPipes.csv"
 GRAVITY=9.8
 WATER_DENSITY=1000
 STEEL_DENSITY=7700
 ALUMINUM_DENSITY=2700
 
-pipesDF=pandas.read_csv("../DataFiles/aluminumPipes.csv")
+pipesDF=pandas.read_csv(DATA_FILE_PATH)
 
 pipeDiameters=[]
 pipePercents=[]
