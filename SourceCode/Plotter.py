@@ -3,11 +3,12 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 import MaterialsFuncs
 
-DATA_FILE_PATH="../DataFiles/aluminumPipes.csv"
+DATA_FILE_PATH="../DataFiles/pvcPipes.csv"
 GRAVITY=9.8
 WATER_DENSITY=1000
 STEEL_DENSITY=7700
 ALUMINUM_DENSITY=2700
+PVC_DENSITY=1380
 
 pipesDF=pandas.read_csv(DATA_FILE_PATH)
 
@@ -25,7 +26,7 @@ for index, row in pipesDF.iterrows():
     print(str(pipeD) + " pipe diameter")
     print(str(wallThickness) + " pipe thickness")
 
-    pipeWeight = MaterialsFuncs.GetMaterialWeight(pipeD, wallThickness, length, ALUMINUM_DENSITY)
+    pipeWeight = MaterialsFuncs.GetMaterialWeight(pipeD, wallThickness, length, PVC_DENSITY)
     boyantForce = MaterialsFuncs.GetBoyantForceOfPipe(pipeD, wallThickness, length)
 
     newtonDifference = boyantForce - pipeWeight
@@ -33,7 +34,7 @@ for index, row in pipesDF.iterrows():
     volumeToSinkPipe = newtonDifference / (WATER_DENSITY * 9.8)
 
     percentToFillPipe = (volumeToSinkPipe / availableVolume) * 100
-    print(str(percentToFillPipe) + " % to fill")
+    print(str(percentToFillPipe) + " % to fill\n")
 
     if(percentToFillPipe<0):
         pipePercents.append(0)
