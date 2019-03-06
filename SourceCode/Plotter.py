@@ -3,13 +3,13 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 import MaterialsFuncs
 
-DATA_FILE_PATH="./DataFiles/pvcPipes.csv"
-EXPORT_FILE_PATH="./DataFiles/boyancy.csv"
-GRAVITY=9.8
-WATER_DENSITY=1000
-STEEL_DENSITY=7700
-ALUMINUM_DENSITY=2700
-PVC_DENSITY=1380
+DATA_FILE_PATH="../DataFiles/pvcPipes.csv"
+EXPORT_FILE_PATH="../DataFiles/boyancy.csv"
+GRAVITY=9.8 #m/s^2
+WATER_DENSITY=1000 #kg/m^2
+STEEL_DENSITY=7700 #kg/m^2
+ALUMINUM_DENSITY=2700 #kg/m^2
+PVC_DENSITY=1380 #kg/m^2
 
 # Read in data
 pipesDF=pandas.read_csv(DATA_FILE_PATH)
@@ -25,11 +25,20 @@ for index, row in pipesDF.iterrows():
     wallThickness=row['THICKNESS']
     pipeThickness.append(wallThickness)
     # Since length does not effect boyancy we keep it constant at 0.5, a length that may be good for a test sub
-    length=0.5
+    length=0.5 #m
 
     # Get the weight of the metal of the pipe as well as the boyant force produced by the water it displaces
-    pipeWeight = MaterialsFuncs.GetMaterialWeight(pipeD, wallThickness, length, ALUMINUM_DENSITY)
+    pipeWeight = MaterialsFuncs.GetMaterialWeight(pipeD, wallThickness, length, PVC_DENSITY)
     boyantForce = MaterialsFuncs.GetBoyantForceOfPipe(pipeD, wallThickness, length)
+    
+
+
+    # pounds to kilograms
+    pipeWeight += MaterialsFuncs.PoundsToKg(1)
+
+    print(str(pipeD) + "in pipe diameter")
+    print(str(pipeWeight) + "N pipe weight")
+    print(str(boyantForce) + "N bForce\n")
 
     # Calculate how much of the tube we will need to fill with water before it will sink
     newtonDifference = boyantForce - pipeWeight
