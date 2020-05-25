@@ -28,7 +28,7 @@ for index, row in pipesDF.iterrows():
     length=0.5
 
     # Get the weight of the metal of the pipe as well as the boyant force produced by the water it displaces
-    pipeWeight = MaterialsFuncs.GetMaterialWeight(pipeD, wallThickness, length, ALUMINUM_DENSITY)
+    pipeWeight = MaterialsFuncs.GetMaterialWeight(pipeD, wallThickness, length, PVC_DENSITY)
     boyantForce = MaterialsFuncs.GetBoyantForceOfPipe(pipeD, wallThickness, length)
 
     # Calculate how much of the tube we will need to fill with water before it will sink
